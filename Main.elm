@@ -6,6 +6,33 @@ import Html.Attributes
 import String
 
 
+--
+-- Customize your emoji and colors
+--
+
+
+successEmoji =
+    "💖"
+
+
+successColor =
+    Color.green
+
+
+keepWorkingEmoji =
+    "🚧"
+
+
+keepWorkingColor =
+    Color.yellow
+
+
+
+--
+-- Now the work begins:
+--
+
+
 stringExample1 =
     ""
 
@@ -117,9 +144,9 @@ viewAssertion actual expected =
                 [ Html.Attributes.style
                     [ ( "background-color"
                       , if isCorrect then
-                            colorToCssString Color.green
+                            colorToCssString successColor
                         else
-                            colorToCssString Color.yellow
+                            colorToCssString keepWorkingColor
                       )
                     , ( "padding", "6px" )
                     ]
@@ -128,9 +155,9 @@ viewAssertion actual expected =
                 , Html.text (toString actual)
                 , Html.text " "
                 , if isCorrect then
-                    Html.text "💖"
+                    Html.text successEmoji
                   else
-                    Html.text "🚧"
+                    Html.text keepWorkingEmoji
                 ]
             ]
 
