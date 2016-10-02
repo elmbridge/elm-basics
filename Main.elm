@@ -42,9 +42,34 @@ stringExample2 friendsName =
     ""
 
 
+formatPhoneNumber : String -> String -> String -> String
+formatPhoneNumber areaCode exchange local =
+    "(" ++ areaCode ++ ") " ++ exchange ++ "-" ++ local
+
+
+initials : String -> String -> String
+initials firstName lastName =
+    (String.left 1 firstName) ++ (String.left 1 lastName)
+
+
+pigLatin : String -> String
+pigLatin word =
+    (String.toUpper <| String.slice 1 2 word)
+        ++ (String.dropLeft 2 word)
+        ++ "-"
+        ++ (String.toLower <| String.left 1 word)
+        ++ "ay"
+
+
 mathExample1 =
     -- TODO: calculate the square root of 20.25
     0
+
+
+
+--
+-- Lists
+--
 
 
 reverseTheList inputList =
@@ -78,6 +103,22 @@ main =
             stringExample2
             [ ( "Jasmine", "Hello, Jasmine" )
             , ( "Jean", "Hello, Jean" )
+            ]
+        , viewFunctionExample3 "formatPhoneNumber"
+            formatPhoneNumber
+            [ ( ( "347", "489", "4608" ), "(347) 489-4608" )
+            , ( ( "800", "555", "2368" ), "(800) 555-2368" )
+            ]
+        , viewFunctionExample2 "initials"
+            initials
+            [ ( ( "Ada", "Lovelace" ), "AL" )
+            , ( ( "Kimberlé", "Crenshaw" ), "KC" )
+            , ( ( "Grace", "Hopper" ), "GH" )
+            ]
+        , viewFunctionExample1 "pigLatin"
+            pigLatin
+            [ ( "Pig", "Ig-pay" )
+            , ( "Latin", "Atin-lay" )
             ]
         , Html.h2 [] [ Html.text "Math" ]
         , viewTypedExample "mathExample1" mathExample1 4.5
@@ -207,3 +248,13 @@ viewFunctionExample1 name function testCases =
             , Html.text " : "
             , Html.div [] (showTestCases [] testCases)
             ]
+
+
+viewFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), value ) -> Html Never
+viewFunctionExample2 name function testCases =
+    viewFunctionExample1 name (\( a, b ) -> function a b) testCases
+
+
+viewFunctionExample3 : String -> (a -> b -> c -> value) -> List ( ( a, b, c ), value ) -> Html Never
+viewFunctionExample3 name function testCases =
+    viewFunctionExample1 name (\( a, b, c ) -> function a b c) testCases
