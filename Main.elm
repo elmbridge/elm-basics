@@ -90,6 +90,28 @@ removeOs inputList =
 
 
 --
+-- Records
+--
+
+
+createPoint x y =
+    { x = x, y = y }
+
+
+grandmotherNames person =
+    [ person.father.mother.name
+    , person.mother.mother.name
+    ]
+
+
+tradePlaces a b =
+    ( { a | location = b.location }
+    , { b | location = a.location }
+    )
+
+
+
+--
 -- No need to look below this line (unless you are curious)
 --
 
@@ -141,6 +163,43 @@ main =
             , ( [ "Octothorpe", "Octohash" ], [] )
             ]
         , Html.h2 [] [ Html.text "Records" ]
+        , viewUntypedExample "createPoint"
+            (createPoint 4 2)
+            "{ x = 4, y = 2 }"
+        , viewUntypedExample "grandmotherNames"
+            (grandmotherNames
+                { name = "Lisa Simpson"
+                , mother =
+                    { name = "Marge Bouvier Simpson"
+                    , mother = { name = "Jackie Gurney Bouvier" }
+                    , father = { name = "Clancy Bouvier" }
+                    }
+                , father =
+                    { name = "Homer Simpson"
+                    , mother = { name = "Mona Olsen" }
+                    , father = { name = "Abraham Simpson" }
+                    }
+                }
+            )
+            (toString [ "Mona Olsen", "Jackie Gurney Bouvier" ])
+        , viewUntypedExample "tradePlaces"
+            (tradePlaces
+                { description = "clean towels"
+                , location = "Laundry room"
+                }
+                { description = "dirty towels"
+                , location = "Kitchen"
+                }
+            )
+            (toString
+                ( { description = "clean towels"
+                  , location = "Kitchen"
+                  }
+                , { description = "dirty towels"
+                  , location = "Laundry room"
+                  }
+                )
+            )
         , Html.h2 [] [ Html.text "Tuples" ]
         , Html.h2 [] [ Html.text "Case statements" ]
         , Html.h2 [] [ Html.text "HTML" ]
@@ -154,7 +213,13 @@ main =
 
 viewUntypedExample : String -> value -> String -> Html Never
 viewUntypedExample name actual expected =
-    viewTypedExample name (toString actual) expected
+    Html.div []
+        [ Html.em [] [ Html.text name ]
+        , Html.text " : "
+        , viewAssertion ((toString actual) == expected)
+            (toString actual)
+            expected
+        ]
 
 
 viewTypedExample : String -> value -> value -> Html Never
@@ -162,45 +227,43 @@ viewTypedExample name actual expected =
     Html.div []
         [ Html.em [] [ Html.text name ]
         , Html.text " : "
-        , viewAssertion actual expected
+        , viewAssertion (actual == expected)
+            (toString actual)
+            (toString expected)
         ]
 
 
-viewAssertion : a -> a -> Html Never
-viewAssertion actual expected =
-    let
-        isCorrect =
-            (actual == expected)
-    in
-        Html.span []
-            [ Html.span
-                [ Html.Attributes.style
-                    [ ( "padding", "6px" )
-                    ]
-                ]
-                [ Html.text "Expected: "
-                , Html.text (toString expected)
-                ]
-            , Html.span
-                [ Html.Attributes.style
-                    [ ( "background-color"
-                      , if isCorrect then
-                            colorToCssString successColor
-                        else
-                            colorToCssString keepWorkingColor
-                      )
-                    , ( "padding", "6px" )
-                    ]
-                ]
-                [ Html.text "Your result: "
-                , Html.text (toString actual)
-                , Html.text " "
-                , if isCorrect then
-                    Html.text successEmoji
-                  else
-                    Html.text keepWorkingEmoji
+viewAssertion : Bool -> String -> String -> Html Never
+viewAssertion isCorrect actual expected =
+    Html.span []
+        [ Html.span
+            [ Html.Attributes.style
+                [ ( "padding", "6px" )
                 ]
             ]
+            [ Html.text "Expected: "
+            , Html.text expected
+            ]
+        , Html.span
+            [ Html.Attributes.style
+                [ ( "background-color"
+                  , if isCorrect then
+                        colorToCssString successColor
+                    else
+                        colorToCssString keepWorkingColor
+                  )
+                , ( "padding", "6px" )
+                ]
+            ]
+            [ Html.text "Your result: "
+            , Html.text actual
+            , Html.text " "
+            , if isCorrect then
+                Html.text successEmoji
+              else
+                Html.text keepWorkingEmoji
+            ]
+        ]
 
 
 colorToCssString : Color -> String
@@ -224,7 +287,15 @@ viewFunctionExample1 : String -> (a -> value) -> List ( a, value ) -> Html Never
 viewFunctionExample1 name function testCases =
     let
         showTestCase ( arg1, expected ) =
-            Html.div [] [ viewAssertion (function arg1) expected ]
+            let
+                actual =
+                    (function arg1)
+            in
+                Html.div []
+                    [ viewAssertion (actual == expected)
+                        (toString actual)
+                        (toString expected)
+                    ]
 
         showTestCases results remainingTestCases =
             case remainingTestCases of
