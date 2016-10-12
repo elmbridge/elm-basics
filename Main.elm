@@ -40,26 +40,17 @@ sayHello friendsName =
 
 formatPhoneNumber : String -> String -> String -> String
 formatPhoneNumber areaCode exchange local =
-    "(" ++ areaCode ++ ") " ++ exchange ++ "-" ++ local
+    ""
 
 
 initials : String -> String -> String
 initials firstName lastName =
-    (String.left 1 firstName) ++ (String.left 1 lastName)
+    ""
 
 
 pigLatin : String -> String
 pigLatin word =
-    (String.toUpper <| String.slice 1 2 word)
-        ++ (String.dropLeft 2 word)
-        ++ "-"
-        ++ (String.toLower <| String.left 1 word)
-        ++ "ay"
-
-
-mathExample1 =
-    -- TODO: calculate the square root of 20.25
-    0
+    ""
 
 
 
@@ -91,19 +82,15 @@ removeOs inputList =
 
 
 createPoint x y =
-    { x = x, y = y }
+    ""
 
 
 grandmotherNames person =
-    [ person.father.mother.name
-    , person.mother.mother.name
-    ]
+    ""
 
 
 tradePlaces a b =
-    ( { a | location = b.location }
-    , { b | location = a.location }
-    )
+    ""
 
 
 
@@ -137,8 +124,6 @@ main =
             [ ( "Pig", "Ig-pay" )
             , ( "Latin", "Atin-lay" )
             ]
-        , Html.h2 [] [ Html.text "Math" ]
-        , viewTypedExample "mathExample1" mathExample1 4.5
         , Html.h2 [] [ Html.text "Functions" ]
         , Html.h2 [] [ Html.text "Lists" ]
         , viewFunctionExample1 "reverseTheList"
