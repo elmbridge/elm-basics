@@ -33,12 +33,8 @@ keepWorkingColor =
 --
 
 
-stringExample1 =
-    ""
-
-
-stringExample2 friendsName =
-    -- TODO: say hello to the friend
+sayHello : String -> String
+sayHello friendsName =
     ""
 
 
@@ -120,9 +116,8 @@ main : Html Never
 main =
     Html.div [ Html.Attributes.style [ ( "padding", "20px" ) ] ]
         [ Html.h2 [] [ Html.text "Strings and Numbers" ]
-        , viewTypedExample "stringExample1" stringExample1 "Hello World"
-        , viewFunctionExample1 "stringExample2"
-            stringExample2
+        , viewFunctionExample1 "sayHello"
+            sayHello
             [ ( "Jasmine", "Hello, Jasmine" )
             , ( "Jean", "Hello, Jean" )
             ]
@@ -217,6 +212,7 @@ viewUntypedExample name actual expected =
         [ Html.em [] [ Html.text name ]
         , Html.text " : "
         , viewAssertion ((toString actual) == expected)
+            (name)
             (toString actual)
             expected
         ]
@@ -228,20 +224,30 @@ viewTypedExample name actual expected =
         [ Html.em [] [ Html.text name ]
         , Html.text " : "
         , viewAssertion (actual == expected)
+            (name)
             (toString actual)
             (toString expected)
         ]
 
 
-viewAssertion : Bool -> String -> String -> Html Never
-viewAssertion isCorrect actual expected =
+viewAssertion : Bool -> String -> String -> String -> Html Never
+viewAssertion isCorrect call actual expected =
     Html.span []
         [ Html.span
             [ Html.Attributes.style
                 [ ( "padding", "6px" )
                 ]
             ]
-            [ Html.text "Expected: "
+            [ Html.text "Expected "
+            , Html.pre
+                [ Html.Attributes.style
+                    [ ( "display", "inline-block" )
+                    , ( "background-color", "#eee" )
+                    , ( "padding", "4px" )
+                    ]
+                ]
+                [ Html.text call ]
+            , Html.text " to equal "
             , Html.text expected
             ]
         , Html.span
@@ -284,7 +290,12 @@ colorToCssString color =
 
 
 viewFunctionExample1 : String -> (a -> value) -> List ( a, value ) -> Html Never
-viewFunctionExample1 name function testCases =
+viewFunctionExample1 =
+    viewFunctionExampleN toString
+
+
+viewFunctionExampleN : (a -> String) -> String -> (a -> value) -> List ( a, value ) -> Html Never
+viewFunctionExampleN argsToString name function testCases =
     let
         showTestCase ( arg1, expected ) =
             let
@@ -293,6 +304,7 @@ viewFunctionExample1 name function testCases =
             in
                 Html.div []
                     [ viewAssertion (actual == expected)
+                        (name ++ " " ++ argsToString arg1)
                         (toString actual)
                         (toString expected)
                     ]
@@ -323,9 +335,17 @@ viewFunctionExample1 name function testCases =
 
 viewFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), value ) -> Html Never
 viewFunctionExample2 name function testCases =
-    viewFunctionExample1 name (\( a, b ) -> function a b) testCases
+    viewFunctionExampleN
+        (\( a, b ) -> toString a ++ " " ++ toString b)
+        name
+        (\( a, b ) -> function a b)
+        testCases
 
 
 viewFunctionExample3 : String -> (a -> b -> c -> value) -> List ( ( a, b, c ), value ) -> Html Never
 viewFunctionExample3 name function testCases =
-    viewFunctionExample1 name (\( a, b, c ) -> function a b c) testCases
+    viewFunctionExampleN
+        (\( a, b, c ) -> toString a ++ " " ++ toString b ++ " " ++ toString c)
+        name
+        (\( a, b, c ) -> function a b c)
+        testCases
