@@ -193,9 +193,11 @@ main =
             , ( [ "Octothorpe", "Octohash" ], [] )
             ]
         , Html.h2 [] [ Html.text "Records" ]
-        , viewUntypedExample "createPoint"
-            (createPoint 4 2)
-            "{ x = 4, y = 2 }"
+        , viewUntypedFunctionExample2 "createPoint"
+            createPoint
+            [ ( ( 4, 2 ), "{ x = 4, y = 2 }" )
+            , ( ( -3, 7 ), "{ x = -3, y = 7 }" )
+            ]
         , viewUntypedExample "grandmotherNames"
             (grandmotherNames
                 { name = "Lisa Simpson"
@@ -453,6 +455,15 @@ viewFunctionExample2 name function testCases =
         (\( a, b ) -> toString a ++ " " ++ toString b)
         name
         (\( a, b ) -> function a b)
+        testCases
+
+
+viewUntypedFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), String ) -> Html Never
+viewUntypedFunctionExample2 name function testCases =
+    viewFunctionExampleN
+        (\( a, b ) -> toString a ++ " " ++ toString b)
+        name
+        (\( a, b ) -> toString (function a b))
         testCases
 
 
