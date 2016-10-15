@@ -80,17 +80,20 @@ howHotIsThePepper heatUnits =
 --
 
 
+reverseTheList : List a -> List a
 reverseTheList inputList =
     -- TODO: return the reversed inputList
     -- HINT: look at http://package.elm-lang.org/packages/elm-lang/core/latest/List for useful functions
     []
 
 
+addOne : List Int -> List Int
 addOne inputList =
     -- TODO: add one to every item in the list
     []
 
 
+removeOs : List String -> List String
 removeOs inputList =
     -- TODO: remove all entries that start with "O"
     []
