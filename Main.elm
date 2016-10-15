@@ -119,6 +119,18 @@ tradePlaces a b =
 
 
 --
+-- Tuples
+--
+
+
+signAndMagnitude : Int -> ( String, Int )
+signAndMagnitude x =
+    -- TODO: implement me
+    ( "TODO", 0 )
+
+
+
+--
 -- No need to look below this line (unless you are curious)
 --
 
@@ -219,6 +231,13 @@ main =
                 )
             )
         , Html.h2 [] [ Html.text "Tuples" ]
+        , viewFunctionExample1 "signAndMagnitude"
+            signAndMagnitude
+            [ ( -7, ( "-", 7 ) )
+            , ( 3, ( "+", 3 ) )
+            , ( 10, ( "+", 10 ) )
+            , ( -44, ( "-", 44 ) )
+            ]
         , Html.h2 [] [ Html.text "Case statements" ]
         , Html.h2 [] [ Html.text "HTML" ]
         , Html.h1 [] [ Html.text "Bonus" ]
