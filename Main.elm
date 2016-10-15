@@ -219,24 +219,25 @@ main =
                 }
             )
             (toString [ "Mona Olsen", "Jackie Gurney Bouvier" ])
-        , viewUntypedExample "tradePlaces"
-            (tradePlaces
-                { description = "clean towels"
-                , location = "Laundry room"
-                }
-                { description = "dirty towels"
-                , location = "Kitchen"
-                }
-            )
-            (toString
-                ( { description = "clean towels"
-                  , location = "Kitchen"
-                  }
-                , { description = "dirty towels"
+        , viewUntypedFunctionExample2 "tradePlaces"
+            tradePlaces
+            [ ( ( { description = "clean towels"
                   , location = "Laundry room"
                   }
+                , { description = "dirty towels"
+                  , location = "Kitchen"
+                  }
                 )
-            )
+              , toString
+                    ( { description = "clean towels"
+                      , location = "Kitchen"
+                      }
+                    , { description = "dirty towels"
+                      , location = "Laundry room"
+                      }
+                    )
+              )
+            ]
         , Html.h2 [] [ Html.text "Tuples" ]
         , viewFunctionExample1 "signAndMagnitude"
             signAndMagnitude
