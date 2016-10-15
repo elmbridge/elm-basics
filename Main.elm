@@ -137,9 +137,9 @@ main =
             ]
         , viewFunctionExample2 "initials"
             initials
-            [ ( ( "Ada", "Lovelace" ), "AL" )
+            [ ( ( "Ada", "Yonath" ), "AY" )
             , ( ( "Kimberlé", "Crenshaw" ), "KC" )
-            , ( ( "Grace", "Hopper" ), "GH" )
+            , ( ( "Dorothy", "Hodgkin" ), "DH" )
             ]
         , viewFunctionExample1 "pigLatin"
             pigLatin
