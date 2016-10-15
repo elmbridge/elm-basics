@@ -292,43 +292,54 @@ viewTypedExample name actual expected =
 
 viewAssertion : Bool -> String -> String -> String -> Html Never
 viewAssertion isCorrect call actual expected =
-    Html.div [ Html.Attributes.style [ ( "padding-left", "24px" ) ] ]
-        [ inlineCode call
-        , Html.div
+    if isCorrect then
+        Html.div
             [ Html.Attributes.style
-                [ ( "margin-left", "24px" )
-                , ( "margin-bottom", "8px" )
+                [ ( "padding-left", "24px" )
+                , ( "padding-right", "6px" )
+                , ( "background-color", colorToCssString successColor )
                 ]
             ]
-            [ outputLabel "Expected output"
-            , Html.div [] [ Html.text expected ]
-            , outputLabel "Your output"
+            [ inlineCode call
+            , Html.text " == "
+            , Html.text actual
+            , Html.span
+                [ Html.Attributes.style
+                    [ ( "float", "right" )
+                    , ( "padding", "4px" )
+                    ]
+                ]
+                [ Html.text successEmoji ]
+            ]
+    else
+        Html.div [ Html.Attributes.style [ ( "padding-left", "24px" ) ] ]
+            [ inlineCode call
             , Html.div
                 [ Html.Attributes.style
-                    [ ( "background-color"
-                      , if isCorrect then
-                            colorToCssString successColor
-                        else
-                            colorToCssString keepWorkingColor
-                      )
-                    , ( "padding", "6px" )
+                    [ ( "margin-left", "24px" )
+                    , ( "margin-bottom", "8px" )
                     ]
                 ]
-                [ Html.text actual
-                , Html.span
+                [ outputLabel "Expected output"
+                , Html.div [] [ Html.text expected ]
+                , outputLabel "Your output"
+                , Html.div
                     [ Html.Attributes.style
-                        [ ( "float", "right" )
-                        , ( "padding", "0 4px" )
+                        [ ( "background-color", colorToCssString keepWorkingColor )
+                        , ( "padding", "6px" )
                         ]
                     ]
-                    [ if isCorrect then
-                        Html.text successEmoji
-                      else
-                        Html.text keepWorkingEmoji
+                    [ Html.text actual
+                    , Html.span
+                        [ Html.Attributes.style
+                            [ ( "float", "right" )
+                            , ( "padding", "0 4px" )
+                            ]
+                        ]
+                        [ Html.text keepWorkingEmoji ]
                     ]
                 ]
             ]
-        ]
 
 
 inlineCode : String -> Html msg
@@ -336,7 +347,7 @@ inlineCode code =
     Html.pre
         [ Html.Attributes.style
             [ ( "display", "inline-block" )
-            , ( "background-color", "#eee" )
+            , ( "background-color", "rgba(238, 238, 238, 0.7)" )
             , ( "padding", "4px" )
             , ( "margin", "0" )
             ]
