@@ -102,7 +102,8 @@ tradePlaces a b =
 main : Html Never
 main =
     Html.div [ Html.Attributes.style [ ( "padding", "20px" ) ] ]
-        [ Html.h2 [] [ Html.text "Strings and Numbers" ]
+        [ fontStyles
+        , Html.h2 [] [ Html.text "Strings and Numbers" ]
         , viewFunctionExample1 "sayHello"
             sayHello
             [ ( "Jasmine", "Hello, Jasmine" )
@@ -188,6 +189,37 @@ main =
         , Html.h2 [] [ Html.text "Maybes" ]
         , Html.h2 [] [ Html.text "Complex case statements" ]
         , Html.h2 [] [ Html.text "Dictionaries" ]
+        ]
+
+
+fontStyles : Html msg
+fontStyles =
+    Html.div []
+        [ Html.node "link"
+            [ Html.Attributes.href "http://fonts.googleapis.com/css?family=Lobster"
+            , Html.Attributes.rel "stylesheet"
+            , Html.Attributes.type' "text/css"
+            ]
+            []
+        , Html.node "link"
+            [ Html.Attributes.href "http://fonts.googleapis.com/css?family=Cabin"
+            , Html.Attributes.rel "stylesheet"
+            , Html.Attributes.type' "text/css"
+            ]
+            []
+        , Html.node "style" [] [ Html.text """
+h2 {
+font-family: 'Lobster', Georgia, Times, serif;
+font-size: 70px;
+line-height: 100px;
+}
+
+body {
+font-family: 'Cabin', Helvetica, Arial, sans-serif;
+font-size: 15px;
+line-height: 25px;
+}
+""" ]
         ]
 
 
