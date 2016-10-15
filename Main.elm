@@ -59,6 +59,23 @@ pigLatin word =
 
 
 --
+-- If Statements
+--
+
+
+isGreaterThanTen : Int -> Bool
+isGreaterThanTen x =
+    -- TODO: implement me
+    False
+
+
+howHotIsThePepper : Float -> String
+howHotIsThePepper heatUnits =
+    "TODO: implement me"
+
+
+
+--
 -- Lists
 --
 
@@ -129,7 +146,20 @@ main =
             [ ( "Pig", "Ig-pay" )
             , ( "Latin", "Atin-lay" )
             ]
-        , Html.h2 [] [ Html.text "Functions" ]
+        , Html.h2 [] [ Html.text "If Statements" ]
+        , viewFunctionExample1 "isGreaterThanTen"
+            isGreaterThanTen
+            [ ( 13, True )
+            , ( 3, False )
+            , ( 10, False )
+            ]
+        , viewFunctionExample1 "howHotIsThePepper"
+            howHotIsThePepper
+            [ ( 2, "not hot" )
+            , ( 100, "mild" )
+            , ( 3000, "medium" )
+            , ( 50000, "hot" )
+            ]
         , Html.h2 [] [ Html.text "Lists" ]
         , viewFunctionExample1 "reverseTheList"
             reverseTheList
