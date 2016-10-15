@@ -237,6 +237,22 @@ main =
                       }
                     )
               )
+            , ( ( { description = "Opening act"
+                  , location = "Stage"
+                  }
+                , { description = "Main performers"
+                  , location = "Backstage"
+                  }
+                )
+              , toString
+                    ( { description = "Opening act"
+                      , location = "Backstage"
+                      }
+                    , { description = "Main performers"
+                      , location = "Stage"
+                      }
+                    )
+              )
             ]
         , Html.h2 [] [ Html.text "Tuples" ]
         , viewFunctionExample1 "signAndMagnitude"
