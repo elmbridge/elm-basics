@@ -344,7 +344,7 @@ viewAssertion isCorrect call actual expected =
                 ]
                 [ Html.div []
                     [ inlineCode call
-                    , Html.text " == "
+                    , Html.text " /= "
                     , Html.text actual
                     , Html.span
                         [ Html.Attributes.style
