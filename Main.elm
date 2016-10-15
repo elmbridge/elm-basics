@@ -192,6 +192,17 @@ main =
         ]
 
 
+outputLabel : String -> Html msg
+outputLabel label =
+    Html.div
+        [ Html.Attributes.style
+            [ ( "font-size", "12px" )
+            , ( "opacity", "0.4" )
+            ]
+        ]
+        [ Html.text label ]
+
+
 fontStyles : Html msg
 fontStyles =
     Html.div []
@@ -226,8 +237,7 @@ line-height: 25px;
 viewUntypedExample : String -> value -> String -> Html Never
 viewUntypedExample name actual expected =
     Html.div []
-        [ Html.em [] [ Html.text name ]
-        , Html.text " : "
+        [ goalHeading name
         , viewAssertion ((toString actual) == expected)
             (name)
             (toString actual)
@@ -238,8 +248,7 @@ viewUntypedExample name actual expected =
 viewTypedExample : String -> value -> value -> Html Never
 viewTypedExample name actual expected =
     Html.div []
-        [ Html.em [] [ Html.text name ]
-        , Html.text " : "
+        [ goalHeading name
         , viewAssertion (actual == expected)
             (name)
             (toString actual)
@@ -249,44 +258,56 @@ viewTypedExample name actual expected =
 
 viewAssertion : Bool -> String -> String -> String -> Html Never
 viewAssertion isCorrect call actual expected =
-    Html.span []
-        [ Html.span
+    Html.div [ Html.Attributes.style [ ( "padding-left", "24px" ) ] ]
+        [ inlineCode call
+        , Html.div
             [ Html.Attributes.style
-                [ ( "padding", "6px" )
+                [ ( "margin-left", "24px" )
+                , ( "margin-bottom", "8px" )
                 ]
             ]
-            [ Html.text "Expected "
-            , Html.pre
+            [ outputLabel "Expected output"
+            , Html.div [] [ Html.text expected ]
+            , outputLabel "Your output"
+            , Html.div
                 [ Html.Attributes.style
-                    [ ( "display", "inline-block" )
-                    , ( "background-color", "#eee" )
-                    , ( "padding", "4px" )
+                    [ ( "background-color"
+                      , if isCorrect then
+                            colorToCssString successColor
+                        else
+                            colorToCssString keepWorkingColor
+                      )
+                    , ( "padding", "6px" )
                     ]
                 ]
-                [ Html.text call ]
-            , Html.text " to equal "
-            , Html.text expected
-            ]
-        , Html.span
-            [ Html.Attributes.style
-                [ ( "background-color"
-                  , if isCorrect then
-                        colorToCssString successColor
-                    else
-                        colorToCssString keepWorkingColor
-                  )
-                , ( "padding", "6px" )
+                [ Html.text actual
+                , Html.span
+                    [ Html.Attributes.style
+                        [ ( "float", "right" )
+                        , ( "padding", "0 4px" )
+                        ]
+                    ]
+                    [ if isCorrect then
+                        Html.text successEmoji
+                      else
+                        Html.text keepWorkingEmoji
+                    ]
                 ]
             ]
-            [ Html.text "Your result: "
-            , Html.text actual
-            , Html.text " "
-            , if isCorrect then
-                Html.text successEmoji
-              else
-                Html.text keepWorkingEmoji
+        ]
+
+
+inlineCode : String -> Html msg
+inlineCode code =
+    Html.pre
+        [ Html.Attributes.style
+            [ ( "display", "inline-block" )
+            , ( "background-color", "#eee" )
+            , ( "padding", "4px" )
+            , ( "margin", "0" )
             ]
         ]
+        [ Html.text code ]
 
 
 colorToCssString : Color -> String
@@ -344,10 +365,18 @@ viewFunctionExampleN argsToString name function testCases =
                             )
     in
         Html.div []
-            [ Html.em [] [ Html.text name ]
-            , Html.text " : "
+            [ goalHeading name
             , Html.div [] (showTestCases [] testCases)
             ]
+
+
+goalHeading : String -> Html msg
+goalHeading name =
+    Html.h3 []
+        [ Html.text "Goal: implement the "
+        , inlineCode name
+        , Html.text " function so that the following tests pass:"
+        ]
 
 
 viewFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), value ) -> Html Never
