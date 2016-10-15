@@ -334,31 +334,38 @@ viewAssertion isCorrect call actual expected =
                 [ Html.text successEmoji ]
             ]
     else
-        Html.div [ Html.Attributes.style [ ( "padding-left", "24px" ) ] ]
-            [ inlineCode call
-            , Html.div
+        Html.div []
+            [ Html.div
                 [ Html.Attributes.style
-                    [ ( "margin-left", "24px" )
-                    , ( "margin-bottom", "8px" )
+                    [ ( "padding-left", "24px" )
+                    , ( "padding-right", "6px" )
+                    , ( "background-color", colorToCssString keepWorkingColor )
                     ]
                 ]
-                [ outputLabel "Expected output"
-                , Html.div [] [ Html.text expected ]
-                , outputLabel "Your output"
-                , Html.div
-                    [ Html.Attributes.style
-                        [ ( "background-color", colorToCssString keepWorkingColor )
-                        , ( "padding", "6px" )
-                        ]
-                    ]
-                    [ Html.text actual
+                [ Html.div []
+                    [ inlineCode call
+                    , Html.text " == "
+                    , Html.text actual
                     , Html.span
                         [ Html.Attributes.style
                             [ ( "float", "right" )
-                            , ( "padding", "0 4px" )
+                            , ( "padding", "4px" )
                             ]
                         ]
                         [ Html.text keepWorkingEmoji ]
+                    ]
+                ]
+            , Html.div
+                [ Html.Attributes.style
+                    [ ( "margin-left", "48px" )
+                    , ( "padding-bottom", "24px" )
+                    ]
+                ]
+                [ outputLabel "Expected:"
+                , Html.div []
+                    [ inlineCode call
+                    , Html.text " == "
+                    , Html.text expected
                     ]
                 ]
             ]
