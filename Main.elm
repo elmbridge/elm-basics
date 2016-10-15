@@ -31,26 +31,30 @@ keepWorkingColor =
 --
 -- Now the work begins:
 --
+--
+-- Strings and Numbers
+--
 
 
 sayHello : String -> String
 sayHello friendsName =
-    ""
+    "TODO: implement me"
 
 
 formatPhoneNumber : String -> String -> String -> String
 formatPhoneNumber areaCode exchange local =
-    ""
+    "TODO: implement me"
 
 
 initials : String -> String -> String
 initials firstName lastName =
-    ""
+    -- HINT: look at http://package.elm-lang.org/packages/elm-lang/core/latest/String for useful functions
+    "TODO: implement me"
 
 
 pigLatin : String -> String
 pigLatin word =
-    ""
+    "TODO: implement me"
 
 
 
@@ -82,15 +86,15 @@ removeOs inputList =
 
 
 createPoint x y =
-    ""
+    "TODO: implement me"
 
 
 grandmotherNames person =
-    ""
+    "TODO: implement me"
 
 
 tradePlaces a b =
-    ""
+    "TODO: implement me"
 
 
 
