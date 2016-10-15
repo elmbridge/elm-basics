@@ -110,11 +110,10 @@ createPoint x y =
 
 
 grandmotherNames person =
-    "TODO: implement me"
-
-
-tradePlaces a b =
-    "TODO: implement me"
+    -- Given a person, return a list of the person's grandmothers
+    -- (person is going to be a record with a mother field and a father field,
+    -- who also have mother and father fields)
+    []
 
 
 
@@ -127,6 +126,12 @@ signAndMagnitude : Int -> ( String, Int )
 signAndMagnitude x =
     -- TODO: implement me
     ( "TODO", 0 )
+
+
+tradePlaces a b =
+    -- Given two records representing items, each with a description field and
+    -- a location field, "trade" the locations of the items
+    "TODO: implement me"
 
 
 
