@@ -109,10 +109,9 @@ createPoint x y =
     "TODO: implement me"
 
 
-grandmotherNames person =
-    -- Given a person, return a list of the person's grandmothers
-    -- (person is going to be a record with a mother field and a father field,
-    -- who also have mother and father fields)
+kingPhilipCanOrderFindGreenSocks animal =
+    -- given an animal, return a list of that animal's classification,
+    -- in the order: Species, Genus, Order, Family, Class, Phylum, Kingdom
     []
 
 
@@ -203,22 +202,56 @@ main =
             [ ( ( 4, 2 ), "{ x = 4, y = 2 }" )
             , ( ( -3, 7 ), "{ x = -3, y = 7 }" )
             ]
-        , viewUntypedExample "grandmotherNames"
-            (grandmotherNames
-                { name = "Lisa Simpson"
-                , mother =
-                    { name = "Marge Bouvier Simpson"
-                    , mother = { name = "Jackie Gurney Bouvier" }
-                    , father = { name = "Clancy Bouvier" }
-                    }
-                , father =
-                    { name = "Homer Simpson"
-                    , mother = { name = "Mona Olsen" }
-                    , father = { name = "Abraham Simpson" }
+        , viewFunctionExample1
+            "kingPhilipCanOrderFindGreenSocks"
+            kingPhilipCanOrderFindGreenSocks
+            [ ( { name = "Lassie"
+                , species =
+                    { name = "Canis familiaris"
+                    , genus =
+                        { name = "Canis"
+                        , family =
+                            { name = "Canidae"
+                            , order =
+                                { name = "Carnivora"
+                                , class =
+                                    { name = "Mammalia"
+                                    , phylum =
+                                        { name = "Chordata"
+                                        , kingdom = { name = "Animalia" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-            )
-            (toString [ "Mona Olsen", "Jackie Gurney Bouvier" ])
+              , [ "Canis familiaris", "Canis", "Canidae", "Carnivora", "Mammalia", "Chordata", "Animalia" ]
+              )
+            , ( { name = "Garfield"
+                , species =
+                    { name = "Felis catus"
+                    , genus =
+                        { name = "Felis"
+                        , family =
+                            { name = "Felinae"
+                            , order =
+                                { name = "Carnivora"
+                                , class =
+                                    { name = "Mammalia"
+                                    , phylum =
+                                        { name = "Chordata"
+                                        , kingdom = { name = "Animalia" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+              , [ "Felis catus", "Felis", "Felinae", "Carnivora", "Mammalia", "Chordata", "Animalia" ]
+              )
+            ]
         , viewUntypedFunctionExample2 "tradePlaces"
             tradePlaces
             [ ( ( { description = "clean towels"
@@ -311,17 +344,6 @@ font-size: 15px;
 line-height: 25px;
 }
 """ ]
-        ]
-
-
-viewUntypedExample : String -> value -> String -> Html Never
-viewUntypedExample name actual expected =
-    Html.div []
-        [ goalHeading name
-        , viewAssertion ((toString actual) == expected)
-            (name)
-            (toString actual)
-            expected
         ]
 
 
@@ -419,11 +441,6 @@ colorToCssString color =
             ]
 
 
-viewFunctionExample1 : String -> (a -> value) -> List ( a, value ) -> Html Never
-viewFunctionExample1 =
-    viewFunctionExampleN toString
-
-
 viewFunctionExampleN : (a -> String) -> String -> (a -> value) -> List ( a, value ) -> Html Never
 viewFunctionExampleN argsToString name function testCases =
     let
@@ -469,6 +486,11 @@ goalHeading name =
         , inlineCode name
         , Html.text " function so that the following tests pass:"
         ]
+
+
+viewFunctionExample1 : String -> (a -> value) -> List ( a, value ) -> Html Never
+viewFunctionExample1 =
+    viewFunctionExampleN toString
 
 
 viewFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), value ) -> Html Never
