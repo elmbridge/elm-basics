@@ -301,17 +301,6 @@ viewUntypedExample name actual expected =
         ]
 
 
-viewTypedExample : String -> value -> value -> Html Never
-viewTypedExample name actual expected =
-    Html.div []
-        [ goalHeading name
-        , viewAssertion (actual == expected)
-            (name)
-            (toString actual)
-            (toString expected)
-        ]
-
-
 viewAssertion : Bool -> String -> String -> String -> Html Never
 viewAssertion isCorrect call actual expected =
     if isCorrect then
@@ -396,7 +385,7 @@ colorToCssString color =
             Color.toRgb color
     in
         String.concat
-            [ "rgb("
+            [ "rgb(`"
             , toString components.red
             , ","
             , toString components.green
