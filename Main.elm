@@ -317,56 +317,61 @@ viewAssertion isCorrect call actual expected =
     if isCorrect then
         Html.div
             [ Html.Attributes.style
-                [ ( "padding-left", "24px" )
-                , ( "padding-right", "6px" )
+                [ ( "margin-left", "32px" )
                 , ( "background-color", colorToCssString successColor )
                 ]
             ]
-            [ inlineCode call
-            , Html.text " == "
-            , Html.text actual
-            , Html.span
+            [ Html.span
                 [ Html.Attributes.style
-                    [ ( "float", "right" )
-                    , ( "padding", "4px" )
+                    [ ( "padding", "4px" )
+                    , ( "margin", "8px" )
                     ]
                 ]
                 [ Html.text successEmoji ]
+            , inlineCode call
+            , Html.text " == "
+            , Html.text actual
             ]
     else
-        Html.div []
-            [ Html.div
-                [ Html.Attributes.style
-                    [ ( "padding-left", "24px" )
-                    , ( "padding-right", "6px" )
-                    , ( "background-color", colorToCssString keepWorkingColor )
-                    ]
+        Html.div
+            [ Html.Attributes.style
+                [ ( "margin-left", "32px" )
                 ]
-                [ Html.div []
-                    [ inlineCode call
-                    , Html.text " /= "
-                    , Html.text actual
-                    , Html.span
-                        [ Html.Attributes.style
-                            [ ( "float", "right" )
-                            , ( "padding", "4px" )
-                            ]
-                        ]
-                        [ Html.text keepWorkingEmoji ]
-                    ]
-                ]
+            ]
+            [ outputLabel "Your implementation:"
             , Html.div
                 [ Html.Attributes.style
-                    [ ( "margin-left", "48px" )
-                    , ( "padding-bottom", "24px" )
+                    [ ( "background-color", colorToCssString keepWorkingColor )
                     ]
                 ]
-                [ outputLabel "Expected:"
-                , Html.div []
-                    [ inlineCode call
-                    , Html.text " == "
-                    , Html.text expected
+                [ Html.span
+                    [ Html.Attributes.style
+                        [ ( "padding", "4px" )
+                        , ( "margin", "8px" )
+                        ]
                     ]
+                    [ Html.text keepWorkingEmoji ]
+                , inlineCode call
+                , Html.text " == "
+                , Html.text actual
+                ]
+            , outputLabel "Expected:"
+            , Html.div
+                [ Html.Attributes.style
+                    [ ( "background-color", colorToCssString Color.gray )
+                    ]
+                ]
+                [ Html.span
+                    [ Html.Attributes.style
+                        [ ( "padding", "4px" )
+                        , ( "margin", "8px" )
+                        , ( "opacity", "0" )
+                        ]
+                    ]
+                    [ Html.text keepWorkingEmoji ]
+                , inlineCode call
+                , Html.text " == "
+                , Html.text expected
                 ]
             ]
 
