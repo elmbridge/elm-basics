@@ -54,6 +54,10 @@ initials firstName lastName =
 
 pigLatin : String -> String
 pigLatin word =
+    -- To go from English to pig latin, take the first letter of the word
+    -- and put it at the end of the word, followed by an "ay" sound.
+    -- Pig latin, in pig latin, is "Ig-pay atin-lay"
+    -- For this exercise, just worry about producing a single word in pig latin.
     "TODO: implement me"
 
 
