@@ -148,7 +148,7 @@ main : Html Never
 main =
     Html.div [ Html.Attributes.style [ ( "padding", "20px" ) ] ]
         [ fontStyles
-        , Html.h2 [] [ Html.text "Strings and Numbers" ]
+        , Html.h2 [] [ Html.text "Strings" ]
         , viewFunctionExample1 "sayHello"
             sayHello
             [ ( "Jasmine", "Hello, Jasmine" )
