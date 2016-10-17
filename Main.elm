@@ -43,6 +43,7 @@ sayHello friendsName =
 
 formatPhoneNumber : String -> String -> String -> String
 formatPhoneNumber areaCode exchange local =
+    -- desired format: (999) 999-9999
     "TODO: implement me"
 
 
@@ -54,6 +55,10 @@ initials firstName lastName =
 
 pigLatin : String -> String
 pigLatin word =
+    -- To go from English to pig latin, take the first letter of the word
+    -- and put it at the end of the word, followed by an "ay" sound.
+    -- Pig latin, in pig latin, is "Ig-pay atin-lay"
+    -- For this exercise, just worry about producing a single word in pig latin.
     "TODO: implement me"
 
 
@@ -109,12 +114,10 @@ createPoint x y =
     "TODO: implement me"
 
 
-grandmotherNames person =
-    "TODO: implement me"
-
-
-tradePlaces a b =
-    "TODO: implement me"
+kingPhilipCanOrderFineGreenSocks animal =
+    -- given an animal, return a list of that animal's classification,
+    -- in the order: Species, Genus, Order, Family, Class, Phylum, Kingdom
+    []
 
 
 
@@ -127,6 +130,12 @@ signAndMagnitude : Int -> ( String, Int )
 signAndMagnitude x =
     -- TODO: implement me
     ( "TODO", 0 )
+
+
+tradePlaces a b =
+    -- Given two records representing items, each with a description field and
+    -- a location field, "trade" the locations of the items
+    "TODO: implement me"
 
 
 
@@ -193,43 +202,96 @@ main =
             , ( [ "Octothorpe", "Octohash" ], [] )
             ]
         , Html.h2 [] [ Html.text "Records" ]
-        , viewUntypedExample "createPoint"
-            (createPoint 4 2)
-            "{ x = 4, y = 2 }"
-        , viewUntypedExample "grandmotherNames"
-            (grandmotherNames
-                { name = "Lisa Simpson"
-                , mother =
-                    { name = "Marge Bouvier Simpson"
-                    , mother = { name = "Jackie Gurney Bouvier" }
-                    , father = { name = "Clancy Bouvier" }
+        , viewUntypedFunctionExample2 "createPoint"
+            createPoint
+            [ ( ( 4, 2 ), "{ x = 4, y = 2 }" )
+            , ( ( -3, 7 ), "{ x = -3, y = 7 }" )
+            ]
+        , viewFunctionExample1
+            "kingPhilipCanOrderFineGreenSocks"
+            kingPhilipCanOrderFineGreenSocks
+            [ ( { name = "Lassie"
+                , species =
+                    { name = "Canis familiaris"
+                    , genus =
+                        { name = "Canis"
+                        , family =
+                            { name = "Canidae"
+                            , order =
+                                { name = "Carnivora"
+                                , class =
+                                    { name = "Mammalia"
+                                    , phylum =
+                                        { name = "Chordata"
+                                        , kingdom = { name = "Animalia" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                , father =
-                    { name = "Homer Simpson"
-                    , mother = { name = "Mona Olsen" }
-                    , father = { name = "Abraham Simpson" }
+                }
+              , [ "Canis familiaris", "Canis", "Canidae", "Carnivora", "Mammalia", "Chordata", "Animalia" ]
+              )
+            , ( { name = "Garfield"
+                , species =
+                    { name = "Felis catus"
+                    , genus =
+                        { name = "Felis"
+                        , family =
+                            { name = "Felinae"
+                            , order =
+                                { name = "Carnivora"
+                                , class =
+                                    { name = "Mammalia"
+                                    , phylum =
+                                        { name = "Chordata"
+                                        , kingdom = { name = "Animalia" }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-            )
-            (toString [ "Mona Olsen", "Jackie Gurney Bouvier" ])
-        , viewUntypedExample "tradePlaces"
-            (tradePlaces
-                { description = "clean towels"
-                , location = "Laundry room"
-                }
-                { description = "dirty towels"
-                , location = "Kitchen"
-                }
-            )
-            (toString
-                ( { description = "clean towels"
-                  , location = "Kitchen"
-                  }
-                , { description = "dirty towels"
+              , [ "Felis catus", "Felis", "Felinae", "Carnivora", "Mammalia", "Chordata", "Animalia" ]
+              )
+            ]
+        , viewUntypedFunctionExample2 "tradePlaces"
+            tradePlaces
+            [ ( ( { description = "clean towels"
                   , location = "Laundry room"
                   }
+                , { description = "dirty towels"
+                  , location = "Kitchen"
+                  }
                 )
-            )
+              , toString
+                    ( { description = "clean towels"
+                      , location = "Kitchen"
+                      }
+                    , { description = "dirty towels"
+                      , location = "Laundry room"
+                      }
+                    )
+              )
+            , ( ( { description = "Opening act"
+                  , location = "Stage"
+                  }
+                , { description = "Main performers"
+                  , location = "Backstage"
+                  }
+                )
+              , toString
+                    ( { description = "Opening act"
+                      , location = "Backstage"
+                      }
+                    , { description = "Main performers"
+                      , location = "Stage"
+                      }
+                    )
+              )
+            ]
         , Html.h2 [] [ Html.text "Tuples" ]
         , viewFunctionExample1 "signAndMagnitude"
             signAndMagnitude
@@ -287,28 +349,6 @@ font-size: 15px;
 line-height: 25px;
 }
 """ ]
-        ]
-
-
-viewUntypedExample : String -> value -> String -> Html Never
-viewUntypedExample name actual expected =
-    Html.div []
-        [ goalHeading name
-        , viewAssertion ((toString actual) == expected)
-            (name)
-            (toString actual)
-            expected
-        ]
-
-
-viewTypedExample : String -> value -> value -> Html Never
-viewTypedExample name actual expected =
-    Html.div []
-        [ goalHeading name
-        , viewAssertion (actual == expected)
-            (name)
-            (toString actual)
-            (toString expected)
         ]
 
 
@@ -406,11 +446,6 @@ colorToCssString color =
             ]
 
 
-viewFunctionExample1 : String -> (a -> value) -> List ( a, value ) -> Html Never
-viewFunctionExample1 =
-    viewFunctionExampleN toString
-
-
 viewFunctionExampleN : (a -> String) -> String -> (a -> value) -> List ( a, value ) -> Html Never
 viewFunctionExampleN argsToString name function testCases =
     let
@@ -458,12 +493,26 @@ goalHeading name =
         ]
 
 
+viewFunctionExample1 : String -> (a -> value) -> List ( a, value ) -> Html Never
+viewFunctionExample1 =
+    viewFunctionExampleN toString
+
+
 viewFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), value ) -> Html Never
 viewFunctionExample2 name function testCases =
     viewFunctionExampleN
         (\( a, b ) -> toString a ++ " " ++ toString b)
         name
         (\( a, b ) -> function a b)
+        testCases
+
+
+viewUntypedFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), String ) -> Html Never
+viewUntypedFunctionExample2 name function testCases =
+    viewFunctionExampleN
+        (\( a, b ) -> toString a ++ " " ++ toString b)
+        name
+        (\( a, b ) -> toString (function a b))
         testCases
 
 
