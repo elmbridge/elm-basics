@@ -114,7 +114,7 @@ createPoint x y =
     "TODO: implement me"
 
 
-kingPhilipCanOrderFindGreenSocks animal =
+kingPhilipCanOrderFineGreenSocks animal =
     -- given an animal, return a list of that animal's classification,
     -- in the order: Species, Genus, Order, Family, Class, Phylum, Kingdom
     []
@@ -208,8 +208,8 @@ main =
             , ( ( -3, 7 ), "{ x = -3, y = 7 }" )
             ]
         , viewFunctionExample1
-            "kingPhilipCanOrderFindGreenSocks"
-            kingPhilipCanOrderFindGreenSocks
+            "kingPhilipCanOrderFineGreenSocks"
+            kingPhilipCanOrderFineGreenSocks
             [ ( { name = "Lassie"
                 , species =
                     { name = "Canis familiaris"
@@ -436,7 +436,7 @@ colorToCssString color =
             Color.toRgb color
     in
         String.concat
-            [ "rgb(`"
+            [ "rgb("
             , toString components.red
             , ","
             , toString components.green
