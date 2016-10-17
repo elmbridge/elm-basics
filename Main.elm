@@ -32,7 +32,7 @@ keepWorkingColor =
 -- Now the work begins:
 --
 --
--- Strings and Numbers
+-- Strings
 --
 
 
