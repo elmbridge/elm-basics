@@ -110,6 +110,7 @@ createPoint x y =
 
 
 grandmotherNames person =
+    -- "Hint: take a stab in the dark and see what the error message can tell you"
     "TODO: implement me"
 
 
