@@ -43,6 +43,7 @@ sayHello friendsName =
 
 formatPhoneNumber : String -> String -> String -> String
 formatPhoneNumber areaCode exchange local =
+    -- desired format: (999) 999-9999
     "TODO: implement me"
 
 
