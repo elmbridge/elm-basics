@@ -116,7 +116,7 @@ createPoint x y =
 
 kingPhilipCanOrderFineGreenSocks animal =
     -- given an animal, return a list of that animal's classification,
-    -- in the order: Species, Genus, Order, Family, Class, Phylum, Kingdom
+    -- in the order: Species, Genus, Family, Order, Class, Phylum, Kingdom
     []
 
 
