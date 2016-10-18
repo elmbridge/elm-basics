@@ -95,6 +95,12 @@ kingPhilipCanOrderFineGreenSocks animal =
     []
 
 
+tradePlaces a b =
+    -- Given two records representing items, each with a description field and
+    -- a location field, "trade" the locations of the items
+    "TODO: implement me"
+
+
 
 --
 -- Tuples
@@ -105,12 +111,6 @@ signAndMagnitude : Int -> ( String, Int )
 signAndMagnitude x =
     -- TODO: implement me
     ( "TODO", 0 )
-
-
-tradePlaces a b =
-    -- Given two records representing items, each with a description field and
-    -- a location field, "trade" the locations of the items
-    "TODO: implement me"
 
 
 
@@ -272,6 +272,8 @@ main =
                     )
               )
             ]
+          -- , Html.h2 [] [ Html.text "HTML" ]
+        , Html.h1 [] [ Html.text "Bonus" ]
         , Html.h2 [] [ Html.text "Tuples" ]
         , viewFunctionExample1 "signAndMagnitude"
             signAndMagnitude
@@ -280,11 +282,9 @@ main =
             , ( 10, ( "+", 10 ) )
             , ( -44, ( "-", 44 ) )
             ]
-        , Html.h2 [] [ Html.text "Case statements" ]
-        , Html.h2 [] [ Html.text "HTML" ]
-        , Html.h1 [] [ Html.text "Bonus" ]
-        , Html.h2 [] [ Html.text "Union types" ]
-        , Html.h2 [] [ Html.text "Maybes" ]
-        , Html.h2 [] [ Html.text "Complex case statements" ]
-        , Html.h2 [] [ Html.text "Dictionaries" ]
+          -- , Html.h2 [] [ Html.text "Union types" ]
+          -- , Html.h2 [] [ Html.text "Case statements" ]
+          -- , Html.h2 [] [ Html.text "Maybes" ]
+          -- , Html.h2 [] [ Html.text "Complex case statements" ]
+          -- , Html.h2 [] [ Html.text "Dictionaries" ]
         ]
