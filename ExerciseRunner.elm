@@ -118,12 +118,14 @@ viewAssertion isCorrect call actual expected =
 
 inlineCode : String -> Html msg
 inlineCode code =
-    Html.pre
+    Html.div
         [ Html.Attributes.style
             [ ( "display", "inline-block" )
             , ( "background-color", "rgba(238, 238, 238, 0.7)" )
             , ( "padding", "4px" )
             , ( "margin", "0" )
+            , ( "font-family", "monospace" )
+            , ( "whitespace", "pre" )
             ]
         ]
         [ Html.text code ]
