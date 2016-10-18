@@ -85,20 +85,38 @@ removeOs inputList =
 --
 
 
-createPoint x y =
-    "TODO: implement me"
+type alias Person =
+    { name : String, age : Int }
 
 
-kingPhilipCanOrderFineGreenSocks animal =
-    -- given an animal, return a list of that animal's classification,
-    -- in the order: Species, Genus, Family, Order, Class, Phylum, Kingdom
-    []
+newborn : String -> { name : String, age : Int }
+newborn name =
+    -- TODO: fix me
+    { name = "", age = -1 }
 
 
-tradePlaces a b =
-    -- Given two records representing items, each with a description field and
-    -- a location field, "trade" the locations of the items
-    "TODO: implement me"
+ageDifference : { name : String, age : Int } -> { name : String, age : Int } -> Int
+ageDifference person1 person2 =
+    -- TODO: fix me
+    0
+
+
+nameChange : String -> { name : String, age : Int } -> { name : String, age : Int }
+nameChange newName person =
+    -- TODO: fix me
+    person
+
+
+getOlder : { name : String, age : Int } -> { name : String, age : Int }
+getOlder person =
+    -- TODO: fix me
+    person
+
+
+combinedYears : List { name : String, age : Int } -> Int
+combinedYears people =
+    -- TODO: fix me
+    0
 
 
 
@@ -182,94 +200,42 @@ main =
             , ( [ "Octothorpe", "Octohash" ], [] )
             ]
         , Html.h2 [] [ Html.text "Records" ]
-        , viewUntypedFunctionExample2 "createPoint"
-            createPoint
-            [ ( ( 4, 2 ), "{ x = 4, y = 2 }" )
-            , ( ( -3, 7 ), "{ x = -3, y = 7 }" )
+        , viewFunctionExample1 "newborn"
+            newborn
+            [ ( "Jenny", { name = "Jenny", age = 0 } )
+            , ( "Abey", { name = "Abey", age = 0 } )
             ]
-        , viewFunctionExample1
-            "kingPhilipCanOrderFineGreenSocks"
-            kingPhilipCanOrderFineGreenSocks
-            [ ( { name = "Lassie"
-                , species =
-                    { name = "Canis familiaris"
-                    , genus =
-                        { name = "Canis"
-                        , family =
-                            { name = "Canidae"
-                            , order =
-                                { name = "Carnivora"
-                                , class =
-                                    { name = "Mammalia"
-                                    , phylum =
-                                        { name = "Chordata"
-                                        , kingdom = { name = "Animalia" }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-              , [ "Canis familiaris", "Canis", "Canidae", "Carnivora", "Mammalia", "Chordata", "Animalia" ]
-              )
-            , ( { name = "Garfield"
-                , species =
-                    { name = "Felis catus"
-                    , genus =
-                        { name = "Felis"
-                        , family =
-                            { name = "Felinae"
-                            , order =
-                                { name = "Carnivora"
-                                , class =
-                                    { name = "Mammalia"
-                                    , phylum =
-                                        { name = "Chordata"
-                                        , kingdom = { name = "Animalia" }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-              , [ "Felis catus", "Felis", "Felinae", "Carnivora", "Mammalia", "Chordata", "Animalia" ]
-              )
+        , viewFunctionExample2 "ageDifference"
+            ageDifference
+            [ ( ( { name = "Nicole", age = 40 }, { name = "Angel", age = 30 } ), 10 )
+            , ( ( { name = "Igor", age = 18 }, { name = "Alexei", age = 23 } ), 5 )
             ]
-        , viewUntypedFunctionExample2 "tradePlaces"
-            tradePlaces
-            [ ( ( { description = "clean towels"
-                  , location = "Laundry room"
-                  }
-                , { description = "dirty towels"
-                  , location = "Kitchen"
-                  }
-                )
-              , toString
-                    ( { description = "clean towels"
-                      , location = "Kitchen"
-                      }
-                    , { description = "dirty towels"
-                      , location = "Laundry room"
-                      }
-                    )
+        , viewFunctionExample2 "nameChange"
+            nameChange
+            [ ( ( "Mr. T", { name = "Laurence", age = 34 } ), { name = "Mr. T", age = 34 } )
+            , ( ( "Demi", { name = "Demetria", age = 17 } ), { name = "Demi", age = 17 } )
+            , ( ( "Ƭ̵̬̊", { name = "Prince", age = 35 } ), { name = "Ƭ̵̬̊", age = 35 } )
+            ]
+        , viewFunctionExample1 "getOlder"
+            getOlder
+            [ ( { name = "Jenny", age = 0 }, { name = "Jenny", age = 1 } )
+            , ( { name = "Igor", age = 18 }, { name = "Igor", age = 19 } )
+            ]
+        , viewFunctionExample1 "combinedYears"
+            combinedYears
+            [ ( [ { name = "Ruth Bader Ginsburg", age = 83 }
+                , { name = "Gloria Allred", age = 75 }
+                , { name = "Caroline Kennedy", age = 58 }
+                ]
+              , 216
               )
-            , ( ( { description = "Opening act"
-                  , location = "Stage"
-                  }
-                , { description = "Main performers"
-                  , location = "Backstage"
-                  }
-                )
-              , toString
-                    ( { description = "Opening act"
-                      , location = "Backstage"
-                      }
-                    , { description = "Main performers"
-                      , location = "Stage"
-                      }
-                    )
+            , ( [ { name = "Amy Poehler", age = 45 }
+                , { name = "Chris Pratt", age = 37 }
+                , { name = "Rashida Jones", age = 40 }
+                , { name = "Aziz Ansari", age = 33 }
+                , { name = "Retta", age = 46 }
+                ]
+              , 201
               )
             ]
           -- , Html.h2 [] [ Html.text "HTML" ]
