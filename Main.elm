@@ -273,7 +273,7 @@ main =
               )
             ]
           -- , Html.h2 [] [ Html.text "HTML" ]
-        , Html.h1 [] [ Html.text "Bonus" ]
+        , Html.h1 [] [ Html.text "Bonus Sections" ]
         , Html.h2 [] [ Html.text "Tuples" ]
         , viewFunctionExample1 "signAndMagnitude"
             signAndMagnitude

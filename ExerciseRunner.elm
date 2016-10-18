@@ -39,11 +39,9 @@ fontStyles =
             ]
             []
         , Html.node "style" [] [ Html.text """
-h2 {
-font-family: 'Lobster', Georgia, Times, serif;
-font-size: 70px;
-line-height: 100px;
-}
+h1, h2 { font-family: 'Lobster', Georgia, Times, serif; }
+h1 { font-size: 90px; line-height: 100px; border-bottom: 3px solid black; }
+h2 { font-size: 70px; line-height: 100px; }
 
 body {
 font-family: 'Cabin', Helvetica, Arial, sans-serif;
