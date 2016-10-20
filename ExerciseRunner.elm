@@ -156,11 +156,6 @@ type alias Example =
 
 viewExample : Example -> Html Never
 viewExample { name, testCases } =
-    viewFunctionExampleN name testCases
-
-
-viewFunctionExampleN : String -> List ( String, Bool, String, String ) -> Html Never
-viewFunctionExampleN name testCases =
     let
         showTestCase ( code, isCorrect, actual, expected ) =
             Html.div []
@@ -194,10 +189,11 @@ goalHeading name =
         ]
 
 
-viewFunctionExampleN' : (a -> String) -> String -> (a -> value) -> List ( a, value ) -> Html Never
-viewFunctionExampleN' argsToString name function testCases =
-    viewFunctionExampleN name
-        (List.map
+functionExampleN : (a -> String) -> String -> (a -> value) -> List ( a, value ) -> Example
+functionExampleN argsToString name function testCases =
+    { name = name
+    , testCases =
+        List.map
             (\( arg1, expected ) ->
                 ( name ++ " " ++ argsToString arg1
                 , function arg1 == expected
@@ -206,35 +202,26 @@ viewFunctionExampleN' argsToString name function testCases =
                 )
             )
             testCases
-        )
+    }
 
 
-viewFunctionExample1 : String -> (a -> value) -> List ( a, value ) -> Html Never
-viewFunctionExample1 =
-    viewFunctionExampleN' toString
+functionExample1 : String -> (a -> value) -> List ( a, value ) -> Example
+functionExample1 =
+    functionExampleN toString
 
 
-viewFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), value ) -> Html Never
-viewFunctionExample2 name function testCases =
-    viewFunctionExampleN'
+functionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), value ) -> Example
+functionExample2 name function testCases =
+    functionExampleN
         (\( a, b ) -> toString a ++ " " ++ toString b)
         name
         (\( a, b ) -> function a b)
         testCases
 
 
-viewUntypedFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), String ) -> Html Never
-viewUntypedFunctionExample2 name function testCases =
-    viewFunctionExampleN'
-        (\( a, b ) -> toString a ++ " " ++ toString b)
-        name
-        (\( a, b ) -> toString (function a b))
-        testCases
-
-
-viewFunctionExample3 : String -> (a -> b -> c -> value) -> List ( ( a, b, c ), value ) -> Html Never
-viewFunctionExample3 name function testCases =
-    viewFunctionExampleN'
+functionExample3 : String -> (a -> b -> c -> value) -> List ( ( a, b, c ), value ) -> Example
+functionExample3 name function testCases =
+    functionExampleN
         (\( a, b, c ) -> toString a ++ " " ++ toString b ++ " " ++ toString c)
         name
         (\( a, b, c ) -> function a b c)

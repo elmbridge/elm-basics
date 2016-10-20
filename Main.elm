@@ -142,86 +142,90 @@ signAndMagnitude x =
 --
 
 
-main : Html Never
-main =
-    Html.div [ Html.Attributes.style [ ( "padding", "20px" ) ] ]
-        [ fontStyles
-        , Html.h2 [] [ Html.text "Strings" ]
-        , viewFunctionExample1 "sayHello"
+examples : List ( String, List Example )
+examples =
+    [ ( "Strings"
+      , [ functionExample1 "sayHello"
             sayHello
             [ ( "Jasmine", "Hello, Jasmine" )
             , ( "Jean", "Hello, Jean" )
             ]
-        , viewFunctionExample3 "formatPhoneNumber"
+        , functionExample3 "formatPhoneNumber"
             formatPhoneNumber
             [ ( ( "347", "489", "4608" ), "(347) 489-4608" )
             , ( ( "800", "555", "2368" ), "(800) 555-2368" )
             ]
-        , viewFunctionExample2 "initials"
+        , functionExample2 "initials"
             initials
             [ ( ( "Ada", "Yonath" ), "AY" )
             , ( ( "Kimberlé", "Crenshaw" ), "KC" )
             , ( ( "Dorothy", "Hodgkin" ), "DH" )
             ]
-        , viewFunctionExample1 "pigLatin"
+        , functionExample1 "pigLatin"
             pigLatin
             [ ( "Pig", "Ig-pay" )
             , ( "Latin", "Atin-lay" )
             ]
-        , Html.h2 [] [ Html.text "If Statements" ]
-        , viewFunctionExample1 "isGreaterThanTen"
+        ]
+      )
+    , ( "If Statements"
+      , [ functionExample1 "isGreaterThanTen"
             isGreaterThanTen
             [ ( 13, True )
             , ( 3, False )
             , ( 10, False )
             ]
-        , viewFunctionExample1 "howHotIsThePepper"
+        , functionExample1 "howHotIsThePepper"
             howHotIsThePepper
             [ ( 2, "not hot" )
             , ( 100, "mild" )
             , ( 3000, "medium" )
             , ( 50000, "hot" )
             ]
-        , Html.h2 [] [ Html.text "Lists" ]
-        , viewFunctionExample1 "reverseTheList"
+        ]
+      )
+    , ( "Lists"
+      , [ functionExample1 "reverseTheList"
             reverseTheList
             [ ( [ 7, 0, 1, 4, 9 ], [ 9, 4, 1, 0, 7 ] )
             , ( [ 99, -1 ], [ -1, 99 ] )
             ]
-        , viewFunctionExample1 "addOne"
+        , functionExample1 "addOne"
             addOne
             [ ( [ 7, 0, 1, 4, 9 ], [ 8, 1, 2, 5, 10 ] )
             , ( [ 99, -1 ], [ 100, 0 ] )
             ]
-        , viewFunctionExample1 "removeOs"
+        , functionExample1 "removeOs"
             removeOs
             [ ( [ "Jessie", "Anibus", "Osirus" ], [ "Jessie", "Anibus" ] )
             , ( [ "Apple", "Banana" ], [ "Apple", "Banana" ] )
             , ( [ "Octothorpe", "Octohash" ], [] )
             ]
-        , Html.h2 [] [ Html.text "Records" ]
-        , viewFunctionExample1 "newborn"
+        ]
+      )
+    , ( "Records"
+      , [ functionExample1 "newborn"
             newborn
             [ ( "Jenny", { name = "Jenny", age = 0 } )
             , ( "Abey", { name = "Abey", age = 0 } )
             ]
-        , viewFunctionExample2 "ageDifference"
+        , functionExample2 "ageDifference"
             ageDifference
             [ ( ( { name = "Nicole", age = 40 }, { name = "Angel", age = 30 } ), 10 )
             , ( ( { name = "Igor", age = 18 }, { name = "Alexei", age = 23 } ), 5 )
             ]
-        , viewFunctionExample2 "nameChange"
+        , functionExample2 "nameChange"
             nameChange
             [ ( ( "Mr. T", { name = "Laurence", age = 34 } ), { name = "Mr. T", age = 34 } )
             , ( ( "Demi", { name = "Demetria", age = 17 } ), { name = "Demi", age = 17 } )
             , ( ( "Ƭ̵̬̊", { name = "Prince", age = 35 } ), { name = "Ƭ̵̬̊", age = 35 } )
             ]
-        , viewFunctionExample1 "getOlder"
+        , functionExample1 "getOlder"
             getOlder
             [ ( { name = "Jenny", age = 0 }, { name = "Jenny", age = 1 } )
             , ( { name = "Igor", age = 18 }, { name = "Igor", age = 19 } )
             ]
-        , viewFunctionExample1 "combinedYears"
+        , functionExample1 "combinedYears"
             combinedYears
             [ ( [ { name = "Ruth Bader Ginsburg", age = 83 }
                 , { name = "Gloria Allred", age = 75 }
@@ -238,19 +242,52 @@ main =
               , 201
               )
             ]
-          -- , Html.h2 [] [ Html.text "HTML" ]
-        , Html.h1 [] [ Html.text "Bonus Sections" ]
-        , Html.h2 [] [ Html.text "Tuples" ]
-        , viewFunctionExample1 "signAndMagnitude"
+        ]
+      )
+      -- , ( "HTML", [] )
+    ]
+
+
+bonusExamples : List ( String, List Example )
+bonusExamples =
+    [ ( "Tuples"
+      , [ functionExample1 "signAndMagnitude"
             signAndMagnitude
             [ ( -7, ( "-", 7 ) )
             , ( 3, ( "+", 3 ) )
             , ( 10, ( "+", 10 ) )
             , ( -44, ( "-", 44 ) )
             ]
-          -- , Html.h2 [] [ Html.text "Union types" ]
-          -- , Html.h2 [] [ Html.text "Case statements" ]
-          -- , Html.h2 [] [ Html.text "Maybes" ]
-          -- , Html.h2 [] [ Html.text "Complex case statements" ]
-          -- , Html.h2 [] [ Html.text "Dictionaries" ]
+        ]
+      )
+      -- , ( "Union types", [] )
+      -- , ( "Case statements", [] )
+      -- , ( "Maybes", [] )
+      -- , ( "Complex case statements", [] )
+      -- , ( "Dictionaries", [] )
+    ]
+
+
+viewSection : (a -> Html msg) -> String -> List a -> Html msg
+viewSection view title content =
+    Html.div []
+        [ Html.h2 [] [ Html.text title ]
+        , content
+            |> List.map view
+            |> Html.div []
+        ]
+
+
+main : Html Never
+main =
+    Html.div
+        [ Html.Attributes.style [ ( "padding", "20px" ) ] ]
+        [ fontStyles
+        , examples
+            |> List.map (\( title, x ) -> viewSection viewExample title x)
+            |> Html.div []
+        , Html.h1 [] [ Html.text "Bonus Sections" ]
+        , bonusExamples
+            |> List.map (\( title, x ) -> viewSection viewExample title x)
+            |> Html.div []
         ]
