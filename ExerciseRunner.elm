@@ -148,37 +148,36 @@ colorToCssString color =
             ]
 
 
-viewFunctionExampleN : (a -> String) -> String -> (a -> value) -> List ( a, value ) -> Html Never
-viewFunctionExampleN argsToString name function testCases =
+type alias Example =
+    { name : String
+    , testCases : List ( String, Bool, String, String )
+    }
+
+
+viewExample : Example -> Html Never
+viewExample { name, testCases } =
+    viewFunctionExampleN name testCases
+
+
+viewFunctionExampleN : String -> List ( String, Bool, String, String ) -> Html Never
+viewFunctionExampleN name testCases =
     let
-        showTestCase ( arg1, expected ) =
-            let
-                actual =
-                    (function arg1)
-            in
-                Html.div []
-                    [ viewAssertion (actual == expected)
-                        (name ++ " " ++ argsToString arg1)
-                        (toString actual)
-                        (toString expected)
-                    ]
+        showTestCase ( code, isCorrect, actual, expected ) =
+            Html.div []
+                [ viewAssertion isCorrect code actual expected ]
 
         showTestCases results remainingTestCases =
             case remainingTestCases of
                 [] ->
                     List.reverse results
 
-                ( arg1, expected ) :: rest ->
-                    let
-                        showMore =
-                            (function arg1 == expected)
-                    in
-                        showTestCases (showTestCase ( arg1, expected ) :: results)
-                            (if showMore then
-                                rest
-                             else
-                                []
-                            )
+                ( code, isCorrect, actual, expected ) :: rest ->
+                    showTestCases (showTestCase ( code, isCorrect, actual, expected ) :: results)
+                        (if isCorrect then
+                            rest
+                         else
+                            []
+                        )
     in
         Html.div []
             [ goalHeading name
@@ -195,14 +194,29 @@ goalHeading name =
         ]
 
 
+viewFunctionExampleN' : (a -> String) -> String -> (a -> value) -> List ( a, value ) -> Html Never
+viewFunctionExampleN' argsToString name function testCases =
+    viewFunctionExampleN name
+        (List.map
+            (\( arg1, expected ) ->
+                ( name ++ " " ++ argsToString arg1
+                , function arg1 == expected
+                , toString <| function arg1
+                , toString expected
+                )
+            )
+            testCases
+        )
+
+
 viewFunctionExample1 : String -> (a -> value) -> List ( a, value ) -> Html Never
 viewFunctionExample1 =
-    viewFunctionExampleN toString
+    viewFunctionExampleN' toString
 
 
 viewFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), value ) -> Html Never
 viewFunctionExample2 name function testCases =
-    viewFunctionExampleN
+    viewFunctionExampleN'
         (\( a, b ) -> toString a ++ " " ++ toString b)
         name
         (\( a, b ) -> function a b)
@@ -211,7 +225,7 @@ viewFunctionExample2 name function testCases =
 
 viewUntypedFunctionExample2 : String -> (a -> b -> value) -> List ( ( a, b ), String ) -> Html Never
 viewUntypedFunctionExample2 name function testCases =
-    viewFunctionExampleN
+    viewFunctionExampleN'
         (\( a, b ) -> toString a ++ " " ++ toString b)
         name
         (\( a, b ) -> toString (function a b))
@@ -220,7 +234,7 @@ viewUntypedFunctionExample2 name function testCases =
 
 viewFunctionExample3 : String -> (a -> b -> c -> value) -> List ( ( a, b, c ), value ) -> Html Never
 viewFunctionExample3 name function testCases =
-    viewFunctionExampleN
+    viewFunctionExampleN'
         (\( a, b, c ) -> toString a ++ " " ++ toString b ++ " " ++ toString c)
         name
         (\( a, b, c ) -> function a b c)
