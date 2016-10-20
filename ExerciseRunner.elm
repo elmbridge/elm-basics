@@ -39,7 +39,7 @@ fontStyles =
             ]
             []
         , Html.node "style" [] [ Html.text """
-h1, h2 { font-family: 'Lobster', Georgia, Times, serif; }
+h1, h2, .title-font { font-family: 'Lobster', Georgia, Times, serif; }
 h1 { font-size: 90px; line-height: 100px; border-bottom: 3px solid black; }
 h2 { font-size: 70px; line-height: 100px; }
 
@@ -154,6 +154,11 @@ type alias Example =
     }
 
 
+isFinished : Example -> Bool
+isFinished example =
+    List.all (\( _, isCorrect, _, _ ) -> isCorrect) example.testCases
+
+
 viewExample : Example -> Html Never
 viewExample { name, testCases } =
     let
@@ -226,3 +231,32 @@ functionExample3 name function testCases =
         name
         (\( a, b, c ) -> function a b c)
         testCases
+
+
+viewSection : (a -> Html msg) -> String -> List a -> Html msg
+viewSection view title content =
+    Html.div []
+        [ Html.h2 [] [ Html.text title ]
+        , content
+            |> List.map view
+            |> Html.div []
+        ]
+
+
+viewExampleSection : String -> List Example -> Html Never
+viewExampleSection title examples =
+    if List.all isFinished examples then
+        Html.span
+            [ Html.Attributes.class "title-font"
+            , Html.Attributes.style
+                [ ( "background-color", colorToCssString Style.successColor )
+                , ( "padding", "4px" )
+                , ( "margin", "4px" )
+                ]
+            ]
+            [ Html.text successEmoji
+            , Html.text " "
+            , Html.text title
+            ]
+    else
+        viewSection viewExample title examples

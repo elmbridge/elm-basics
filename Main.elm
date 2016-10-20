@@ -268,26 +268,16 @@ bonusExamples =
     ]
 
 
-viewSection : (a -> Html msg) -> String -> List a -> Html msg
-viewSection view title content =
-    Html.div []
-        [ Html.h2 [] [ Html.text title ]
-        , content
-            |> List.map view
-            |> Html.div []
-        ]
-
-
 main : Html Never
 main =
     Html.div
         [ Html.Attributes.style [ ( "padding", "20px" ) ] ]
         [ fontStyles
         , examples
-            |> List.map (\( title, x ) -> viewSection viewExample title x)
+            |> List.map (\( title, x ) -> viewExampleSection title x)
             |> Html.div []
         , Html.h1 [] [ Html.text "Bonus Sections" ]
         , bonusExamples
-            |> List.map (\( title, x ) -> viewSection viewExample title x)
+            |> List.map (\( title, x ) -> viewExampleSection title x)
             |> Html.div []
         ]
