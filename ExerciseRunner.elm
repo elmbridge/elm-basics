@@ -29,13 +29,13 @@ fontStyles =
         [ Html.node "link"
             [ Html.Attributes.href "http://fonts.googleapis.com/css?family=Lobster"
             , Html.Attributes.rel "stylesheet"
-            , Html.Attributes.type' "text/css"
+            , Html.Attributes.type_ "text/css"
             ]
             []
         , Html.node "link"
             [ Html.Attributes.href "http://fonts.googleapis.com/css?family=Cabin"
             , Html.Attributes.rel "stylesheet"
-            , Html.Attributes.type' "text/css"
+            , Html.Attributes.type_ "text/css"
             ]
             []
         , Html.node "style" [] [ Html.text """
