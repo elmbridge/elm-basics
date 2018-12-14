@@ -1,9 +1,10 @@
-module Main exposing (..)
+module Main exposing (Person, addOne, ageDifference, bonusExamples, combinedYears, examples, formatPhoneNumber, getOlder, howHotIsThePepper, initials, isGreaterThanTen, main, nameChange, newborn, pigLatin, removeOs, reverseTheList, sayHello, signAndMagnitude)
 
 import ExerciseRunner exposing (..)
 import Html exposing (Html)
 import Html.Attributes
 import String
+
 
 
 --
@@ -244,7 +245,8 @@ examples =
             ]
         ]
       )
-      -- , ( "HTML", [] )
+
+    -- , ( "HTML", [] )
     ]
 
 
@@ -260,18 +262,19 @@ bonusExamples =
             ]
         ]
       )
-      -- , ( "Union types", [] )
-      -- , ( "Case statements", [] )
-      -- , ( "Maybes", [] )
-      -- , ( "Complex case statements", [] )
-      -- , ( "Dictionaries", [] )
+
+    -- , ( "Union types", [] )
+    -- , ( "Case statements", [] )
+    -- , ( "Maybes", [] )
+    -- , ( "Complex case statements", [] )
+    -- , ( "Dictionaries", [] )
     ]
 
 
 main : Html Never
 main =
     Html.div
-        [ Html.Attributes.style [ ( "padding", "20px" ) ] ]
+        [ Html.Attributes.style "padding" "20px" ]
         [ fontStyles
         , examples
             |> List.map (\( title, x ) -> viewExampleSection title x)
