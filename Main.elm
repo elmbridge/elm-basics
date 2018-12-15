@@ -1,4 +1,4 @@
-module Main exposing (Person, addOne, ageDifference, bonusExamples, combinedYears, examples, formatPhoneNumber, getOlder, howHotIsThePepper, initials, isGreaterThanTen, main, nameChange, newborn, pigLatin, removeOs, reverseTheList, sayHello, signAndMagnitude)
+module Main exposing (main)
 
 import ExerciseRunner exposing (..)
 import Html exposing (Html)

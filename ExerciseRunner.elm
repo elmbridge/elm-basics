@@ -1,4 +1,11 @@
-module ExerciseRunner exposing (Example, fontStyles, functionExample1, functionExample2, functionExample3, functionExampleN, goalHeading, inlineCode, isFinished, outputLabel, viewAssertion, viewExample, viewExampleSection, viewSection)
+module ExerciseRunner exposing
+    ( Example
+    , fontStyles
+    , functionExample1
+    , functionExample2
+    , functionExample3
+    , viewExampleSection
+    )
 
 --
 -- There's no need to look in this file (unless you are curious).
@@ -36,7 +43,9 @@ fontStyles =
             , Html.Attributes.type_ "text/css"
             ]
             []
-        , Html.node "style" [] [ Html.text """
+        , Html.node "style"
+            []
+            [ Html.text """
 h1, h2, .title-font { font-family: 'Lobster', Georgia, Times, serif; }
 h1 { font-size: 90px; line-height: 100px; border-bottom: 3px solid black; }
 h2 { font-size: 70px; line-height: 100px; }
@@ -46,7 +55,8 @@ font-family: 'Cabin', Helvetica, Arial, sans-serif;
 font-size: 15px;
 line-height: 25px;
 }
-""" ]
+"""
+            ]
         ]
 
 
