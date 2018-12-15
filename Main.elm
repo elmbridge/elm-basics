@@ -25,7 +25,7 @@ formatPhoneNumber areaCode exchange local =
 
 initials : String -> String -> String
 initials firstName lastName =
-    -- HINT: look at http://package.elm-lang.org/packages/elm-lang/core/latest/String for useful functions
+    -- HINT: look at http://package.elm-lang.org/packages/elm/core/latest/String for useful functions
     "TODO: implement me"
 
 
@@ -64,7 +64,7 @@ howHotIsThePepper heatUnits =
 reverseTheList : List a -> List a
 reverseTheList inputList =
     -- TODO: return the reversed inputList
-    -- HINT: look at http://package.elm-lang.org/packages/elm-lang/core/latest/List for useful functions
+    -- HINT: look at http://package.elm-lang.org/packages/elm/core/latest/List for useful functions
     []
 
 
