@@ -1,7 +1,4 @@
-module Style exposing (..)
-
-import Color
-
+module Style exposing (expectedColor, keepWorkingColor, keepWorkingEmoji, successColor, successEmoji)
 
 --
 -- Customize your emoji and colors
@@ -13,7 +10,7 @@ successEmoji =
 
 
 successColor =
-    Color.green
+    "rgb(46, 204, 64)"
 
 
 keepWorkingEmoji =
@@ -21,4 +18,8 @@ keepWorkingEmoji =
 
 
 keepWorkingColor =
-    Color.yellow
+    "rgb(255, 220, 0)"
+
+
+expectedColor =
+    "rgb(170, 170, 170)"

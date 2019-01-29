@@ -1,9 +1,10 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import ExerciseRunner exposing (..)
 import Html exposing (Html)
 import Html.Attributes
 import String
+
 
 
 --
@@ -24,7 +25,7 @@ formatPhoneNumber areaCode exchange local =
 
 initials : String -> String -> String
 initials firstName lastName =
-    -- HINT: look at http://package.elm-lang.org/packages/elm-lang/core/latest/String for useful functions
+    -- HINT: look at http://package.elm-lang.org/packages/elm/core/latest/String for useful functions
     "TODO: implement me"
 
 
@@ -63,7 +64,7 @@ howHotIsThePepper heatUnits =
 reverseTheList : List a -> List a
 reverseTheList inputList =
     -- TODO: return the reversed inputList
-    -- HINT: look at http://package.elm-lang.org/packages/elm-lang/core/latest/List for useful functions
+    -- HINT: look at http://package.elm-lang.org/packages/elm/core/latest/List for useful functions
     []
 
 
@@ -244,7 +245,8 @@ examples =
             ]
         ]
       )
-      -- , ( "HTML", [] )
+
+    -- , ( "HTML", [] )
     ]
 
 
@@ -260,18 +262,19 @@ bonusExamples =
             ]
         ]
       )
-      -- , ( "Union types", [] )
-      -- , ( "Case statements", [] )
-      -- , ( "Maybes", [] )
-      -- , ( "Complex case statements", [] )
-      -- , ( "Dictionaries", [] )
+
+    -- , ( "Union types", [] )
+    -- , ( "Case statements", [] )
+    -- , ( "Maybes", [] )
+    -- , ( "Complex case statements", [] )
+    -- , ( "Dictionaries", [] )
     ]
 
 
 main : Html Never
 main =
     Html.div
-        [ Html.Attributes.style [ ( "padding", "20px" ) ] ]
+        [ Html.Attributes.style "padding" "20px" ]
         [ fontStyles
         , examples
             |> List.map (\( title, x ) -> viewExampleSection title x)
