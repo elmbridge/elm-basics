@@ -29,15 +29,6 @@ initials firstName lastName =
     "TODO: implement me"
 
 
-pigLatin : String -> String
-pigLatin word =
-    -- To go from English to pig latin, take the first letter of the word
-    -- and put it at the end of the word, followed by an "ay" sound.
-    -- Pig latin, in pig latin, is "Ig-pay atin-lay"
-    -- For this exercise, just worry about producing a single word in pig latin.
-    "TODO: implement me"
-
-
 
 --
 -- If Statements
@@ -122,6 +113,9 @@ combinedYears people =
 
 
 --
+-- BONUS TIME!
+--
+--
 -- Tuples
 --
 
@@ -130,6 +124,21 @@ signAndMagnitude : Int -> ( String, Int )
 signAndMagnitude x =
     -- TODO: implement me
     ( "TODO", 0 )
+
+
+
+--
+-- String (cont.)
+--
+
+
+pigLatin : String -> String
+pigLatin word =
+    -- To go from English to pig latin, take the first letter of the word
+    -- and put it at the end of the word, followed by an "ay" sound.
+    -- Pig latin, in pig latin, is "Ig-pay atin-lay"
+    -- For this exercise, just worry about producing a single word in pig latin.
+    "TODO: implement me"
 
 
 
@@ -161,11 +170,6 @@ examples =
             [ ( ( "Ada", "Yonath" ), "AY" )
             , ( ( "Kimberlé", "Crenshaw" ), "KC" )
             , ( ( "Dorothy", "Hodgkin" ), "DH" )
-            ]
-        , functionExample1 "pigLatin"
-            pigLatin
-            [ ( "Pig", "Ig-pay" )
-            , ( "Latin", "Atin-lay" )
             ]
         ]
       )
@@ -259,6 +263,14 @@ bonusExamples =
             , ( 3, ( "+", 3 ) )
             , ( 10, ( "+", 10 ) )
             , ( -44, ( "-", 44 ) )
+            ]
+        ]
+      )
+    , ( "Strings (cont.)"
+      , [ functionExample1 "pigLatin"
+            pigLatin
+            [ ( "Pig", "Ig-pay" )
+            , ( "Latin", "Atin-lay" )
             ]
         ]
       )
