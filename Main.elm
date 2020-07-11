@@ -1,9 +1,8 @@
 module Main exposing (main)
 
-import ExerciseRunner exposing (..)
+import ExerciseRunner
 import Html exposing (Html)
 import Html.Attributes
-import String
 
 
 
@@ -152,20 +151,20 @@ pigLatin word =
 --
 
 
-examples : List ( String, List Example )
+examples : List ( String, List ExerciseRunner.Example )
 examples =
     [ ( "Strings"
-      , [ functionExample1 "sayHello"
+      , [ ExerciseRunner.functionExample1 "sayHello"
             sayHello
             [ ( "Jasmine", "Hello, Jasmine" )
             , ( "Jean", "Hello, Jean" )
             ]
-        , functionExample3 "formatPhoneNumber"
+        , ExerciseRunner.functionExample3 "formatPhoneNumber"
             formatPhoneNumber
             [ ( ( "347", "489", "4608" ), "(347) 489-4608" )
             , ( ( "800", "555", "2368" ), "(800) 555-2368" )
             ]
-        , functionExample2 "initials"
+        , ExerciseRunner.functionExample2 "initials"
             initials
             [ ( ( "Ada", "Yonath" ), "AY" )
             , ( ( "Kimberlé", "Crenshaw" ), "KC" )
@@ -174,13 +173,13 @@ examples =
         ]
       )
     , ( "If Statements"
-      , [ functionExample1 "isGreaterThanTen"
+      , [ ExerciseRunner.functionExample1 "isGreaterThanTen"
             isGreaterThanTen
             [ ( 13, True )
             , ( 3, False )
             , ( 10, False )
             ]
-        , functionExample1 "howHotIsThePepper"
+        , ExerciseRunner.functionExample1 "howHotIsThePepper"
             howHotIsThePepper
             [ ( 2, "not hot" )
             , ( 100, "mild" )
@@ -190,17 +189,17 @@ examples =
         ]
       )
     , ( "Lists"
-      , [ functionExample1 "reverseTheList"
+      , [ ExerciseRunner.functionExample1 "reverseTheList"
             reverseTheList
             [ ( [ 7, 0, 1, 4, 9 ], [ 9, 4, 1, 0, 7 ] )
             , ( [ 99, -1 ], [ -1, 99 ] )
             ]
-        , functionExample1 "addOne"
+        , ExerciseRunner.functionExample1 "addOne"
             addOne
             [ ( [ 7, 0, 1, 4, 9 ], [ 8, 1, 2, 5, 10 ] )
             , ( [ 99, -1 ], [ 100, 0 ] )
             ]
-        , functionExample1 "removeOs"
+        , ExerciseRunner.functionExample1 "removeOs"
             removeOs
             [ ( [ "Jessie", "Anibus", "Osirus" ], [ "Jessie", "Anibus" ] )
             , ( [ "Apple", "Banana" ], [ "Apple", "Banana" ] )
@@ -209,28 +208,28 @@ examples =
         ]
       )
     , ( "Records"
-      , [ functionExample1 "newborn"
+      , [ ExerciseRunner.functionExample1 "newborn"
             newborn
             [ ( "Jenny", { name = "Jenny", age = 0 } )
             , ( "Abey", { name = "Abey", age = 0 } )
             ]
-        , functionExample2 "ageDifference"
+        , ExerciseRunner.functionExample2 "ageDifference"
             ageDifference
             [ ( ( { name = "Nicole", age = 40 }, { name = "Angel", age = 30 } ), 10 )
             , ( ( { name = "Igor", age = 18 }, { name = "Alexei", age = 23 } ), 5 )
             ]
-        , functionExample2 "nameChange"
+        , ExerciseRunner.functionExample2 "nameChange"
             nameChange
             [ ( ( "Mr. T", { name = "Laurence", age = 34 } ), { name = "Mr. T", age = 34 } )
             , ( ( "Demi", { name = "Demetria", age = 17 } ), { name = "Demi", age = 17 } )
             , ( ( "Ƭ̵̬̊", { name = "Prince", age = 35 } ), { name = "Ƭ̵̬̊", age = 35 } )
             ]
-        , functionExample1 "getOlder"
+        , ExerciseRunner.functionExample1 "getOlder"
             getOlder
             [ ( { name = "Jenny", age = 0 }, { name = "Jenny", age = 1 } )
             , ( { name = "Igor", age = 18 }, { name = "Igor", age = 19 } )
             ]
-        , functionExample1 "combinedYears"
+        , ExerciseRunner.functionExample1 "combinedYears"
             combinedYears
             [ ( [ { name = "Ruth Bader Ginsburg", age = 83 }
                 , { name = "Gloria Allred", age = 75 }
@@ -254,10 +253,10 @@ examples =
     ]
 
 
-bonusExamples : List ( String, List Example )
+bonusExamples : List ( String, List ExerciseRunner.Example )
 bonusExamples =
     [ ( "Tuples"
-      , [ functionExample1 "signAndMagnitude"
+      , [ ExerciseRunner.functionExample1 "signAndMagnitude"
             signAndMagnitude
             [ ( -7, ( "-", 7 ) )
             , ( 3, ( "+", 3 ) )
@@ -267,7 +266,7 @@ bonusExamples =
         ]
       )
     , ( "Strings (cont.)"
-      , [ functionExample1 "pigLatin"
+      , [ ExerciseRunner.functionExample1 "pigLatin"
             pigLatin
             [ ( "Pig", "Ig-pay" )
             , ( "Latin", "Atin-lay" )
@@ -287,12 +286,12 @@ main : Html Never
 main =
     Html.div
         [ Html.Attributes.style "padding" "20px" ]
-        [ fontStyles
+        [ ExerciseRunner.fontStyles
         , examples
-            |> List.map (\( title, x ) -> viewExampleSection title x)
+            |> List.map (\( title, x ) -> ExerciseRunner.viewExampleSection title x)
             |> Html.div []
         , Html.h1 [] [ Html.text "Bonus Sections" ]
         , bonusExamples
-            |> List.map (\( title, x ) -> viewExampleSection title x)
+            |> List.map (\( title, x ) -> ExerciseRunner.viewExampleSection title x)
             |> Html.div []
         ]

@@ -15,8 +15,7 @@ module ExerciseRunner exposing
 import Debug
 import Html exposing (Html)
 import Html.Attributes
-import String
-import Style exposing (..)
+import Style
 
 
 outputLabel : String -> Html msg
@@ -65,13 +64,13 @@ viewAssertion isCorrect call actual expected =
     if isCorrect then
         Html.div
             [ Html.Attributes.style "margin-left" "32px"
-            , Html.Attributes.style "background-color" successColor
+            , Html.Attributes.style "background-color" Style.successColor
             ]
             [ Html.span
                 [ Html.Attributes.style "padding" "4px"
                 , Html.Attributes.style "margin" "8px"
                 ]
-                [ Html.text successEmoji ]
+                [ Html.text Style.successEmoji ]
             , inlineCode call
             , Html.text " == "
             , Html.text actual
@@ -83,13 +82,13 @@ viewAssertion isCorrect call actual expected =
             ]
             [ outputLabel "Your implementation:"
             , Html.div
-                [ Html.Attributes.style "background-color" keepWorkingColor
+                [ Html.Attributes.style "background-color" Style.keepWorkingColor
                 ]
                 [ Html.span
                     [ Html.Attributes.style "padding" "4px"
                     , Html.Attributes.style "margin" "8px"
                     ]
-                    [ Html.text keepWorkingEmoji ]
+                    [ Html.text Style.keepWorkingEmoji ]
                 , inlineCode call
                 , Html.text " == "
                 , Html.text actual
@@ -103,7 +102,7 @@ viewAssertion isCorrect call actual expected =
                     , Html.Attributes.style "margin" "8px"
                     , Html.Attributes.style "opacity" "0"
                     ]
-                    [ Html.text keepWorkingEmoji ]
+                    [ Html.text Style.keepWorkingEmoji ]
                 , inlineCode call
                 , Html.text " == "
                 , Html.text expected
@@ -233,7 +232,7 @@ viewExampleSection title examples =
             , Html.Attributes.style "padding" "4px"
             , Html.Attributes.style "margin" "4px"
             ]
-            [ Html.text successEmoji
+            [ Html.text Style.successEmoji
             , Html.text " "
             , Html.text title
             ]
