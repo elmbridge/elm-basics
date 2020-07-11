@@ -133,11 +133,6 @@ type alias Example =
     }
 
 
-isFinished : Example -> Bool
-isFinished example =
-    List.all (\(TestCase _ isCorrect _ _) -> isCorrect) example.testCases
-
-
 viewExample : Example -> Html Never
 viewExample { name, testCases } =
     let
@@ -213,29 +208,11 @@ functionExample3 name function testCases =
         testCases
 
 
-viewSection : (a -> Html msg) -> String -> List a -> Html msg
-viewSection view title content =
-    Html.div []
-        [ Html.h2 [] [ Html.text title ]
-        , content
-            |> List.map view
-            |> Html.div []
-        ]
-
-
 viewExampleSection : String -> List Example -> Html Never
 viewExampleSection title examples =
-    if List.all isFinished examples then
-        Html.span
-            [ Html.Attributes.class "title-font"
-            , Html.Attributes.style "background-color" Style.successColor
-            , Html.Attributes.style "padding" "4px"
-            , Html.Attributes.style "margin" "4px"
-            ]
-            [ Html.text Style.successEmoji
-            , Html.text " "
-            , Html.text title
-            ]
-
-    else
-        viewSection viewExample title examples
+    Html.div []
+        [ Html.h2 [] [ Html.text title ]
+        , examples
+            |> List.map viewExample
+            |> Html.div []
+        ]
