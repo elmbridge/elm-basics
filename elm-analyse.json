@@ -1,0 +1,5 @@
+{
+  "excludedPaths": [
+    "Main.elm"
+  ]
+}
